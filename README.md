@@ -1,3 +1,3 @@
 Ethereum Kickstart Project
 
-> Building a smart contract in Solidity to solve scamming issues in kickstart app
+> Building a smart contract in Solidity to propose a solution that will solve scamming issues in kickstart app
