@@ -1,14 +1,29 @@
 import React from 'react';
+import { Button, Card } from 'semantic-ui-react';
+
+import Layout from '../components/Layout';
 import factory from '../ethereum/factory';
 
 const Index = props => {
-	console.log(props);
+	const renderCampaigns = () => {
+		const items = props.campaigns.map(address => {
+			return {
+				header: address,
+				description: <a>View Campaign</a>,
+				fluid: true,
+			};
+		});
+
+		return <Card.Group items={items} />;
+	};
 
 	return (
-		<div>
+		<Layout>
 			<h1>Welcome to CrowdCoin!</h1>
-			{/* <p>{props.campaigns[0]}</p> */}
-		</div>
+			<h3>Open Campaigns</h3>
+			<Button floated='right' content='Create Campaign' icon='add circle' primary />
+			{renderCampaigns()}
+		</Layout>
 	);
 };
 
