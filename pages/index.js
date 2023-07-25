@@ -3,13 +3,15 @@ import { Button, Card } from 'semantic-ui-react';
 
 import Layout from '../components/Layout';
 import factory from '../ethereum/factory';
+import { Link } from '../routes';
 
 const Index = props => {
 	const renderCampaigns = () => {
 		const items = props.campaigns.map(address => {
 			return {
 				header: address,
-				description: <a>View Campaign</a>,
+				// description: <a>View Campaign</a>,
+				description: <Link href={`/campaigns/${address}`}>Go to campaign address</Link>,
 				fluid: true,
 			};
 		});
@@ -21,7 +23,9 @@ const Index = props => {
 		<Layout>
 			<h1>Welcome to CrowdCoin!</h1>
 			<h3>Open Campaigns</h3>
-			<Button floated='right' content='Create Campaign' icon='add circle' primary />
+			<Link route='/campaigns/new'>
+				<Button floated='right' content='Create Campaign' icon='add circle' primary />
+			</Link>
 			{renderCampaigns()}
 		</Layout>
 	);
