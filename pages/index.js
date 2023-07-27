@@ -11,7 +11,11 @@ const Index = props => {
 			return {
 				header: address,
 				// description: <a>View Campaign</a>,
-				description: <Link href={`/campaigns/${address}`}>Go to campaign address</Link>,
+				description: (
+					<Link href={`/campaigns/${address}`} legacyBehavior>
+						<a>Go to campaign address</a>
+					</Link>
+				),
 				fluid: true,
 			};
 		});

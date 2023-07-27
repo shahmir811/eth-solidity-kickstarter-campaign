@@ -25,7 +25,6 @@ const CampaignNew = () => {
 
 			Router.pushRoute('/');
 		} catch (err) {
-			console.log(err);
 			setErrorMessage(err.message);
 		}
 		setLoading(false);

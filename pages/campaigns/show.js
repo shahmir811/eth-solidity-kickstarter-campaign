@@ -1,13 +1,14 @@
 import React from 'react';
-import { Card, Grid } from 'semantic-ui-react';
+import { Button, Card, Grid } from 'semantic-ui-react';
 
 import ContributeForm from '../../components/ContributeForm';
 import Layout from '../../components/Layout';
 import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
+import { Link } from '../../routes';
 
 const CampaignShow = props => {
-	const { minimumContribution, balance, requestsCount, approversCount, manager } = props;
+	const { address, minimumContribution, balance, requestsCount, approversCount, manager } = props;
 
 	const renderCards = () => {
 		const items = [
@@ -46,10 +47,20 @@ const CampaignShow = props => {
 		<Layout>
 			<h3>Campaign Show</h3>
 			<Grid>
-				<Grid.Column width={10}>{renderCards()}</Grid.Column>
-				<Grid.Column width={6}>
-					<ContributeForm />
-				</Grid.Column>
+				<Grid.Row>
+					<Grid.Column width={10}>{renderCards()}</Grid.Column>
+					<Grid.Column width={6}>
+						<ContributeForm address={address} />
+					</Grid.Column>
+				</Grid.Row>
+
+				<Grid.Row>
+					<Grid.Column>
+						<Link route={`/campaigns/${address}/requests`}>
+							<Button primary>View Requests</Button>
+						</Link>
+					</Grid.Column>
+				</Grid.Row>
 			</Grid>
 		</Layout>
 	);
@@ -59,11 +70,12 @@ CampaignShow.getInitialProps = async props => {
 	const campaign = Campaign(props.query.address);
 	const summary = await campaign.methods.getSummary().call();
 	return {
-		minimumContribution: summary[0],
-		balance: summary[1],
-		requestsCount: summary[2],
-		approversCount: summary[3],
-		manager: summary[4],
+		address: props.query.address,
+		minimumContribution: BigInt(summary[0]).toString(),
+		balance: BigInt(summary[1]).toString(),
+		requestsCount: BigInt(summary[2]).toString(),
+		approversCount: BigInt(summary[3]).toString(),
+		manager: BigInt(summary[4]).toString(),
 	};
 };
 
